@@ -1,24 +1,23 @@
 import sqlite3
 
 con = sqlite3.connect("youtube.db")
+con.row_factory = sqlite3.Row
 cursor = con.cursor()
 
 cursor.execute('''
-                CREATE TABLE IF NOT EXISTS video(
+                CREATE TABLE IF NOT EXISTS videos (
                     id INTEGER PRIMARY KEY,
                     name TEXT NOT NULL,
-                    time TEXT NOT NULL,
+                    time TEXT NOT NULL
                 )
-''')
-
-
-        
+            ''')
+      
 def listAllVideo():
     print("\n")
     print("*" * 70)
-    cursor.execute("SELECT * FROM video")
+    cursor.execute("SELECT * FROM videos")
     for row in cursor.fetchall():
-        print(f"{row.id}. {row.name} = {row.time}")
+        print(f"{row['id']}. {row['name']}, Duration = {row['time']}")
     print("\n")
     print("*" * 70)
 
